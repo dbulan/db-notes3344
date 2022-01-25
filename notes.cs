@@ -3,6 +3,9 @@
 */
 
 # Docker
+
+|Images - gotovie reshenia, cto soderzit funkcional, ego nelza vidoizmeniat, ego mozno skacat i na ego osnove sozdat svoej projekt.
+|Container - sostoit iz obrazov?
  
 $ docker run -d -p 1337:80 docker/getting-started
 
@@ -33,6 +36,91 @@ http://localhost:1337
 $ docker stop {ID}  // ostanovim ID -> docker ps
 $ docker start {ID}
 $ docker pause/unpause {ID}
+$ docker kill // zestkij vixod
 $ docker restart
 
 $ docker login // docker.com
+
+---
+
+$ docker pull // skachatj image
+
+dockerfile - mesto gde mozn opisatj vse podkljuchaemie obrazi.
+
+$ docker pull openjdk
+$ docker pull openjdk:latest // tozesamoe
+$ docker pull openjdk:11	 // versiju
+
+// zapuskaem obraz
+
+$ docker run openjdk	 // sam obraz zapustit bez containere nevozmozno, poetomu, sozdatsa container ( !!! kazdij  raz vipolnjaja eto komandu budut sozdavatsa containeri)
+
+
+$ docker run -it openjdk // zapustit c interaktivnom rezime ctobi s nim vzaimodejstvovatj
+/**
+	Флаг -i — это сокращение для --interactive. Благодаря этому флагу поток STDIN поддерживается в открытом состоянии даже если контейнер к STDIN не подключён.
+	Флаг -t — это сокращение для --tty. Благодаря этому флагу выделяется псевдотерминал, который соединяет используемый терминал с потоками STDIN и STDOUT контейнера.
+	Для того чтобы получить возможность взаимодействия с контейнером через терминал нужно совместно использовать флаги -i и -t.
+*/
+
+$ docker run -it --name MyCustomName openjdk
+
+jshell> i otkroetsa java terminal
+jshell> 1+6
+jshell> CTRL + d (vijti)
+
+$ docker start MyJava
+
+MyJava
+EXITED(137) // vishli s kodom oshibki
+
+---
+
+$ docker pull ubuntu
+$ docker run -it --name MyUbuntu ubuntu // sozdaem na osnove ubuntu 
+root@gfgfg: 							// popadaem v terminal
+
+---
+
+VS Code
+
+Extensions
+	- Docker
+	- Remote Containers
+	
+	
+New Project
+
+# create: Dockerfile
+
+FROM openjdk:latest 	// s kakogo obraza berem info
+COPY . /java 
+	// . 			kakie faili iz tekuwego projecta budem kopirovat v docker image iz projecta -> . <- tochka znachit chto iz kornia nashego projecta. a mozno COPY /app naprimer
+    // /java 		v kakuju papku mi budem pomewatj
+	
+WORKDIR /java // rabocaja direktorija
+			  // t.e. vse faili iz "." budem pomewatj v papku ".java" i WORKDIR budet sama papka "/java"
+
+EXPOSE 1337	  // videt rezultat v brauzere
+
+RUN	javac Main.java		 // vipolnit dejstvie pri pervonacalnom zapuske containera, - cto-to tam dlja java // odin raz pri sozdanii kontainera
+CMD ["java", "Main"]		 																			   // kazdij raz pri zapuske containere
+
+/**
+CMD ["java", "Main"] - toze samoe cto i kommanda
+java Main 
+*/
+
+---
+
+file: Main.java content: hello-world
+
+$ docker build . // vnutri projecta
+$ docker images
+<none>			 // blja sodali bez imeni
+$ docker image rm {id}
+
+---
+
+$ docker run -p 1488:1337 {id}
+> hello-wordl
