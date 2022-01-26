@@ -1,3 +1,7 @@
+
+How to add Bootstrap, jQuery, and popper.js to Laravel 8 project using laravel-mix?
+https://laravelshowcase.com/question/how-to-add-bootstrap-jquery-and-popper-js-to-laravel-8-project-using-laravel-mix
+
 /**
 	How to Install Different PHP (5.6, 7.x and 8.0) Versions in Ubuntu | https://www.tecmint.com/install-different-php-versions-in-ubuntu/
 */
@@ -124,3 +128,31 @@ $ docker image rm {id}
 
 $ docker run -p 1488:1337 {id}
 > hello-wordl
+
+------------------------------------------
+
+Docker composer (mnozestvo obrazov)
+
+// folder: php/index.php
+//			   Dockerfile
+
+
+FROM php:7.2-apache (php + apache podkljuchaju)
+WORKDIR /var/www/html
+COPY . /var/www/html
+EXPOSE 80
+
+$ cd php // ili //
+$ docker build -t my-php-app ./php
+
+$ docker images
+$ docker run -p 1337:80 -d my-php-app
+
+// Dockerfile 		opisivaju tolko odin obraza
+// Dockercompose	opisivaju neskolko
+
+------------------------------------------
+
+docker-compose.yml
+
+// phpmyadmin - delaem poisk ego v dockerhube i kopiruem nastrojku dlja docker-compose
